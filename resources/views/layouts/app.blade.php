@@ -19,10 +19,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <!-- CSS only -->
-
-       <!--bootstrap only -->
+      <!--bootstrap only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
 </head>
 <body>
     <div id="app">
@@ -38,27 +37,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                                    <a class="nav-link" href="\posts\create">Add post</a>
-                     </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="\posts\create">Add post</a>
+             </li>
 
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                                    <a class="nav-link" href="\">Home</a>
-                     </li>
-                     <li class="nav-item">
-                                    <a class="nav-link" href="\about">About</a>
-                     </li>
-                     <li class="nav-item">
-                                    <a class="nav-link" href="\posts">Blog</a>
-                     </li>
-                     <li class="nav-item">
-                                    <a class="nav-link" href="\services">Services</a>
-                     </li>
-
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                            <a class="nav-link" href="\">Home</a>
+                             </li>
+                             <li class="nav-item">
+                                            <a class="nav-link" href="\about">About</a>
+                             </li>
+                             <li class="nav-item">
+                                            <a class="nav-link" href="\posts">Blog</a>
+                             </li>
+                             <li class="nav-item">
+                                            <a class="nav-link" href="\services">Services</a>
+                             </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -95,11 +94,12 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4 container">
-            @include('inc.messages')
-            @yield('content')
-        </main>
+        <div class="container">
+            <main class="py-4">
+                @yield('content')
+            </main>
+        </div>
+      
     </div>
 </body>
 </html>

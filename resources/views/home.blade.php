@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <a class="nav-link btn btn-primary" href="\posts\create">Add post</a>
+
+                  <h4>Your posts</h4>
                 </div>
             </div>
         </div>
