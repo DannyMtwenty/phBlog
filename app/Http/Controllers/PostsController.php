@@ -8,6 +8,17 @@ use DB;
 
 class PostsController extends Controller
 {
+
+  // ensure the user is authenticated
+  /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=>['index','show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +33,8 @@ class PostsController extends Controller
            $posts= Post::orderBy('created_at','desc')->paginate(10);
            return view('posts.index')->with('posts',$posts);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -76,6 +89,11 @@ class PostsController extends Controller
     public function edit($id)
     {
       $post =Post::find($id);
+
+      if(auth()->user()->id !== $post->user_id){
+        return redirect('/posts')->with('error','Unauthorized Page');
+      }
+
       return view('posts.edit')->with('post',$post);
        
     }
@@ -114,6 +132,10 @@ class PostsController extends Controller
     
       $post =Post::find($id);
       $post->delete();
+
+      if(auth()->user()->id !== $post->user_id){
+        return redirect('/posts')->with('error','Unauthorized Page');
+      }
 
       return redirect('/posts')->with('success','Post deleted');
     }

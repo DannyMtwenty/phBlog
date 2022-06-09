@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    //users sees only their posts   
+    public function user()
+    {
+       
+        return $this->belongsTo('User::class');
+    }
+
+  
 }

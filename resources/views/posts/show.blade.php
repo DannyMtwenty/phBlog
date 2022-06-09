@@ -20,12 +20,22 @@
     
     <div class="d-flex flex-row ">
     <a href="/posts/" class="btn btn-sm btn-primary">Back</a>
+    
+    {{-- if user not authenticated --}}
+    @if (!auth::guest())
+        {{-- if post belong to user --}}
+    @if (auth::user()->id == $post->user_id)
+        
+    
     <a href="/posts/{{$post->id}}/edit" class="btn btn-sm btn-warning">Edit</a>
 
     {{Form::open(['action' => ['App\Http\Controllers\PostsController@destroy',$post->id], 'method' => 'POST', 'class' => 'float-right'])}}
     {{Form::hidden('_method','DELETE')}}
     {{Form::submit('Delete', ['class' => 'btn btn-sm btn-danger '])}}
     {{Form::close()}}
+    @endif
+
+    @endif
 
     </div>
     
