@@ -32,7 +32,7 @@ class PostsController extends Controller
           //$posts= Post::all();
           //$posts= DB::select('select * from posts');
 
-           $posts= Post::orderBy('created_at','desc')->paginate(10);
+           $posts= Post::orderBy('created_at','desc')->paginate(5);
            return view('posts.index')->with('posts',$posts);
     }
 
@@ -181,7 +181,7 @@ class PostsController extends Controller
 
       //if img is not empty,delete it
      if($post -> cover_image !== 'noimage.jpg'){
-      storage::delete('public/cover_images/'.$post->cover_image);
+      Storage::delete('public/cover_images/'.$post->cover_image);
       }
 
       $post->delete();

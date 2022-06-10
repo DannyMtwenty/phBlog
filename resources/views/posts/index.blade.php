@@ -16,7 +16,9 @@
     <div class="col-md-8">
         <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>                    
      
-        <small>{{$post->created_at}}</small> 
+        <small>{{$post->created_at}}</small> <br>     
+        
+        <small>Posted by: {{$post-> User ->name}}</small> 
     </div>
 </div>
 
