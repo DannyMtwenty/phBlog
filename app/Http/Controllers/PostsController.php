@@ -34,7 +34,8 @@ class PostsController extends Controller
 
          //  
          //  $posts= Post::paginate(4);
-           $posts= Post::orderBy('created_at','desc')->paginate(5);
+         //eager loading
+           $posts= Post::orderBy('created_at','desc')->with('user','likes')->paginate(5);
            return view('posts.index')->with('posts',$posts);
     }
 
@@ -174,24 +175,23 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+   
+    public function destroy(Post $post)
     {
 
-
-      
-    
-      $post =Post::find($id);
+      // $post =Post::find($id);
 
       //if img is not empty,delete it
      if($post -> cover_image !== 'noimage.jpg'){
       Storage::delete('public/cover_images/'.$post->cover_image);
       }
-
+      $this -> authorize('delete',$post); //the user is implicit
       $post->delete();
 
-      if(auth()->user()->id !== $post->user_id){
-        return redirect('/posts')->with('error','Unauthorized Page');
-      }
+      // if(auth()->user()->id !== $post->user_id){
+      //   return redirect('/posts')->with('error','Unauthorized Page');
+      // }
 
       return redirect('/posts')->with('success','Post deleted');
     }

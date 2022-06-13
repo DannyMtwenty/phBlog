@@ -20,6 +20,8 @@
 
      
 <div class="flex items-center">
+
+@auth    
     @if(!$post->likedBy(auth()->user())){
 
         <form action="{{ route('posts.likes',$post) }}" method="POST" class="mr-1">
@@ -30,7 +32,7 @@
     @else
     {
         
-        <form action="{{ route('posts.likes',$post) }}"  method="POST" class="mr-1">
+        <form action="{{ route('likes.delete',$post) }}"  method="POST" class="mr-1">
             @csrf   
             @method('DELETE')      
             <button type="submit" class="text-blue-500">Unlike</button>
@@ -39,7 +41,7 @@
     }
     @endif
     
-          
+@endauth         
 
         
 

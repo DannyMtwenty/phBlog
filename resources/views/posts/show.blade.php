@@ -15,20 +15,22 @@
     <a href="/posts/" class="btn btn-sm btn-primary">Back</a>
 
        {{-- if user not authenticated --}}
-       @if (!auth::guest())
-       {{-- if post belong to user --}}
-   @if (auth::user()->id == $post->user_id)
-       
-   
-   <a href="/posts/{{$post->id}}/edit" class="btn btn-sm btn-warning">Edit</a>
+ @auth
+        {{-- if post belong to user --}}
+    {{-- @if (auth::user()->id == $post->user_id) --}}
+    @can('delete', $post)
+    
+      <a href="/posts/{{$post->id}}/edit" class="btn btn-sm btn-warning">Edit</a>
 
-   {{Form::open(['action' => ['App\Http\Controllers\PostsController@destroy',$post->id], 'method' => 'POST', 'class' => 'float-right'])}}
-   {{Form::hidden('_method','DELETE')}}
-   {{Form::submit('Delete', ['class' => 'btn btn-sm btn-danger mt-1'])}}
-   {{Form::close()}}
-   @endif
+      <form action="{{ route('post.delete',$post) }}"  method="POST" class="mr-1">
+        @csrf   
+        @method('DELETE')      
+        <button type="submit" class="bg-blue-500 hover:bg-red-700 text-danger font-bold py-2 px-4 rounded">Delete</button>
+    </form> 
+    {{-- @endif --}}
+    @endcan
 
-   @endif
+   @endauth
   </div>
 </div>
 
