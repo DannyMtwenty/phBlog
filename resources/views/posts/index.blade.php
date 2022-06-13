@@ -16,22 +16,56 @@
     <div class="col-md-8">
         <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>                    
      
-        <small>{{$post->created_at}}</small> <br>     
+        <small><b>{{$post->created_at->diffForHumans()}}</b></small> <br>
+
+     
+<div class="flex items-center">
+    @if(!$post->likedBy(auth()->user())){
+
+        <form action="{{ route('posts.likes',$post->id) }}" method="POST" class="mr-1">
+            @csrf         
+            <button type="submit" class="text-blue-500">Like</button>
+        </form>
+    }
+    @else
+    {
         
-        <small>Posted by: {{$post-> User ->name}}</small> 
+        <form action="{{ route('posts.delete',$post->id) }}"  method="POST" class="mr-1">
+            @csrf         
+            <button type="submit" class="text-blue-500">Unlike</button>
+        </form> 
+
+    }
+    @endif
+    
+          
+
+        
+
+
+        <span>{{$post->likes->count()}}-{{Str::plural('like',$post->likes->count())}}</span> 
+
+</div>  
     </div>
 </div>
 
 
+          
+       
                 @endforeach
+
+                <h4>Pagination</h4>
+                {{$posts->links()}}
+            
             </ul>
 
    </div>
+ 
 
         @else
             <p>No posts found</p>
 
         @endif
        
-        
+      
   @endsection

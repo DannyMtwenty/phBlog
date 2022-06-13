@@ -32,6 +32,8 @@ class PostsController extends Controller
           //$posts= Post::all();
           //$posts= DB::select('select * from posts');
 
+         //  
+         //  $posts= Post::paginate(4);
            $posts= Post::orderBy('created_at','desc')->paginate(5);
            return view('posts.index')->with('posts',$posts);
     }
@@ -80,8 +82,9 @@ class PostsController extends Controller
       {
         $fileNameToStore='noimage.jpg';
       }
-      
-           
+
+
+        
         $post= new Post;
         $post->title= $request->title;
         $post->body= $request->body;

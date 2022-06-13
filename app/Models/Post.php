@@ -15,6 +15,17 @@ class Post extends Model
        
         return $this->belongsTo(User::class);
     }
+    public function likes()
+    {
+       
+        return $this->hasMany(Like::class);
+    }
 
+    public function likedBy(User $user)
+    {
+        //returns true if user has liked post        
+        return $this->likes->contains('user_id', $user->id);
+    }
+  
   
 }
