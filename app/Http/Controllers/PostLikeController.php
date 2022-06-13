@@ -7,7 +7,7 @@ use App\Models\Post;
 
 class PostLikeController extends Controller
 {
-//authentication
+//make sure the user is authenticated
     public function __construct()
     {
         $this->middleware('auth');
@@ -31,7 +31,8 @@ class PostLikeController extends Controller
     }
     public function destroy(Post $post,Request $request)
     {
-        $post->likes()->delete(['user_id'=>$request->user()->id]);   
+        //deletes like 
+        $request->user()->likes()->delete(['post_id'=>$post->id]);
         return back();    
     }
         
